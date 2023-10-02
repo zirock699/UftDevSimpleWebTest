@@ -24,16 +24,18 @@ namespace UftDevWebTest
 
 
         [TestMethod]
-
-        public void MyLoginTest()
+        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", @"|DataDirectory|\Data\Data.csv", "Data#csv", DataAccessMethod.Sequential)]
+   
+            public void MyLoginTest()
         {
             IBrowser browser = BrowserFactory.Launch(BrowserType.Chrome);
             browser.Navigate("http://advantageonlineshopping.com/#/");
 
-            
 
+            var username = TestContext.DataRow[0].ToString();
+            string password = TestContext.DataRow["Password"].ToString();
 
-            var userMenuLink = browser.Describe<ILink>(new LinkDescription
+                var userMenuLink = browser.Describe<ILink>(new LinkDescription
             {
                 InnerText = @"My account My orders Sign out ",
                 TagName = @"A"
@@ -47,7 +49,7 @@ namespace UftDevWebTest
                 TagName = @"INPUT",
                 Type = @"text"
             });
-            usernameEditField.SetValue("RandomUserName");
+            usernameEditField.SetValue(username);
 
             var passwordEditField = browser.Describe<IEditField>(new EditFieldDescription
             {
@@ -55,7 +57,7 @@ namespace UftDevWebTest
                 TagName = @"INPUT",
                 Type = @"password"
             });
-            passwordEditField.SetSecure("6514481c7a0efe6e7834029e51d2341af2856953ce0d6971a80d6aec61a3a4fe59ff");
+            passwordEditField.SetValue(password);
 
             var signInBtnButton = browser.Describe<IButton>(new ButtonDescription
             {
