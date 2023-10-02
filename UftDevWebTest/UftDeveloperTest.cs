@@ -33,6 +33,8 @@ namespace UftDevWebTest
 
             }
 
+            Console.WriteLine("Testing...*************************");
+
             
             var userMenuLink = browser.Describe<ILink>(new LinkDescription
             {
