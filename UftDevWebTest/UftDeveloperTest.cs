@@ -9,6 +9,7 @@ namespace UftDevWebTest
     [TestClass]
     public class UftDeveloperTest : UnitTestClassBase<UftDeveloperTest>
     {
+        private Random random = new Random();
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
@@ -20,68 +21,64 @@ namespace UftDevWebTest
         {
 
         }
-        //[TestMethod]
-
-        //public void MyLoginTest()
-        //{
-        //    IBrowser browser = BrowserFactory.Launch(BrowserType.Chrome);
-        //    browser.Navigate("http://advantageonlineshopping.com/#/");
-
-        //    for (int i=1;i <11; i++)
-        //    {
-        //        browser.OpenNewTab();
-
-        //    }
-
-        //    Console.WriteLine("Testing...*************************");
 
 
-        //    var userMenuLink = browser.Describe<ILink>(new LinkDescription
-        //    {
-        //        InnerText = @"My account My orders Sign out ",
-        //        TagName = @"A"
-        //    });
-        //    userMenuLink.Click();
+        [TestMethod]
+        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", @"|DataDirectory|\Data\Data.csv", "Data#csv", DataAccessMethod.Sequential)]
+        public void MyLoginTest()
+        {
+            IBrowser browser = BrowserFactory.Launch(BrowserType.Chrome);
+            browser.Navigate("http://advantageonlineshopping.com/#/");
+
+            var username = TestContext.DataRow[0].ToString();
+            string password = TestContext.DataRow[1].ToString();
+
+            var userMenuLink = browser.Describe<ILink>(new LinkDescription
+            {
+                InnerText = @"My account My orders Sign out ",
+                TagName = @"A"
+            });
+            userMenuLink.Click();
 
 
-        //    var usernameEditField = browser.Describe<IEditField>(new EditFieldDescription
-        //    {
-        //        Name = @"username",
-        //        TagName = @"INPUT",
-        //        Type = @"text"
-        //    });
-        //    usernameEditField.SetValue("RandomUserName");
+            var usernameEditField = browser.Describe<IEditField>(new EditFieldDescription
+            {
+                Name = @"username",
+                TagName = @"INPUT",
+                Type = @"text"
+            });
+            usernameEditField.SetValue(username);
 
-        //    var passwordEditField = browser.Describe<IEditField>(new EditFieldDescription
-        //    {
-        //        Name = @"password",
-        //        TagName = @"INPUT",
-        //        Type = @"password"
-        //    });
-        //    passwordEditField.SetSecure("6514481c7a0efe6e7834029e51d2341af2856953ce0d6971a80d6aec61a3a4fe59ff");
+            var passwordEditField = browser.Describe<IEditField>(new EditFieldDescription
+            {
+                Name = @"password",
+                TagName = @"INPUT",
+                Type = @"password"
+            });
+            passwordEditField.SetValue(password);
 
-        //    var signInBtnButton = browser.Describe<IButton>(new ButtonDescription
-        //    {
-        //        ButtonType = @"button",
-        //        Name = @"SIGN IN",
-        //        TagName = @"BUTTON"
-        //    });
-        //    signInBtnButton.Click();
+            var signInBtnButton = browser.Describe<IButton>(new ButtonDescription
+            {
+                ButtonType = @"button",
+                Name = @"SIGN IN",
+                TagName = @"BUTTON"
+            });
+            signInBtnButton.Click();
 
-        //    signInBtnButton.Click();
+            signInBtnButton.Click();
 
-        //    var signInResultMessageWebElement = browser.Describe<IWebElement>(new WebElementDescription
-        //    {
-        //        TagName = @"LABEL",
-        //        InnerText = @"Incorrect user name or password."
-        //    });
+            var signInResultMessageWebElement = browser.Describe<IWebElement>(new WebElementDescription
+            {
+                TagName = @"LABEL",
+                InnerText = @"Incorrect user name or password."
+            });
 
-        //    Verify.AreEqual(@"Incorrect user name or password.", signInResultMessageWebElement.InnerText, "Verification", "Verify property: innerText");
+            Verify.AreEqual(@"Incorrect user name or password.", signInResultMessageWebElement.InnerText, "Verification", "Verify property: innerText");
 
 
-        //}
+        }
 
-        private Random random = new Random();
+
 
         [TestMethod]
         public void VerifyUsernameIsNotEmpty()
