@@ -27,7 +27,13 @@ namespace UftDevWebTest
             IBrowser browser = BrowserFactory.Launch(BrowserType.Chrome);
             browser.Navigate("http://advantageonlineshopping.com/#/");
 
+            for (int i=1;i <11; i++)
+            {
+                browser.OpenNewTab();
 
+            }
+
+            
             var userMenuLink = browser.Describe<ILink>(new LinkDescription
             {
                 InnerText = @"My account My orders Sign out ",
