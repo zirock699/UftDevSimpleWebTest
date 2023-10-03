@@ -26,7 +26,7 @@ namespace UftDevWebTest
         [TestMethod]
         [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", @"|DataDirectory|\Data\Data.csv", "Data#csv", DataAccessMethod.Sequential)]
    
-            public void MyLoginTest()
+            public void JD_MyLoginTest()
         {
             IBrowser browser = BrowserFactory.Launch(BrowserType.Chrome);
             browser.Navigate("http://advantageonlineshopping.com/#/");
@@ -34,6 +34,7 @@ namespace UftDevWebTest
 
             var username = TestContext.DataRow[0].ToString();
             string password = TestContext.DataRow["Password"].ToString();
+            
 
                 var userMenuLink = browser.Describe<ILink>(new LinkDescription
             {
@@ -83,7 +84,7 @@ namespace UftDevWebTest
 
 
         [TestMethod]
-        public void VerifyUsernameIsNotEmpty()
+        public void JD_VerifyUsernameIsNotEmpty()
         {
             int testValue = random.Next(0, 2); // Generates 0 or 1
             string username = testValue == 1 ? "JohnDoe" : "";
@@ -91,7 +92,7 @@ namespace UftDevWebTest
         }
 
         [TestMethod]
-        public void VerifyPasswordLength()
+        public void JD_VerifyPasswordLength()
         {
             int testValue = random.Next(3, 10); // Generates a number between 3 and 9
             string password = new string('*', testValue);
@@ -99,7 +100,7 @@ namespace UftDevWebTest
         }
 
         [TestMethod]
-        public void ValidateSuccessfulLogin()
+        public void JD_ValidateSuccessfulLogin()
         {
             int testValue = random.Next(0, 2); // Generates 0 or 1
             bool loginSuccessful = testValue == 1;
@@ -107,7 +108,7 @@ namespace UftDevWebTest
         }
 
         [TestMethod]
-        public void CheckForTwoFactorAuthentication()
+        public void JD_CheckForTwoFactorAuthentication()
         {
             int testValue = random.Next(0, 2); // Generates 0 or 1
             bool twoFactorEnabled = testValue == 1;
@@ -115,7 +116,7 @@ namespace UftDevWebTest
         }
 
         [TestMethod]
-        public void VerifyAccountLockAfterFailedAttempts()
+        public void JD_VerifyAccountLockAfterFailedAttempts()
         {
             int failedAttempts = random.Next(1, 6); // Generates a number between 1 and 5
             Assert.IsTrue(failedAttempts < 5, $"Account should not be locked, but had {failedAttempts} failed attempts");
